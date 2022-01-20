@@ -30,12 +30,14 @@ https://addons.mozilla.org/de/firefox/addon/add-german-gender-language/
 
 Warum dieses Add-On?
 
-Einige Webseiten weigern sich beharrlich zu 'gendern'. Wenn Sie schon immer wissen wollten, wie sich Wikipedia, die FAZ oder die BILD-Zeitung in genderneutralem Deutsch anfühlen, dann ist dieses Add-On das Richtige für Sie.
+Einige Webseiten weigern sich beharrlich zu 'gendern'. Wenn Sie schon immer wissen wollten, wie sich Wikipedia, die FAZ oder Heise in genderneutralem Deutsch anfühlen, dann ist dieses Add-On das Richtige für Sie.
 
 
 Funktionsweise
 
-Das Add-On fügt dort, wo es ohne Sinnentstellung möglich ist, sanft gegenderte Ausdrücke hinzu. Als Trennzeichen wird der Doppelpunkt (:) genutzt. Hierbei geht Gründlichkeit vor Masse. 1. Ein freistehendes man wird durch man:frau ersetzt. Wörter, die Menschengruppen bezeichnen, werden gegendert, wenn ein Vorsatzwort die Unbestimmtheit anzeigt (viele, alle, manche usw.).
+Das Add-On fügt dort, wo es ohne Sinnentstellung möglich ist, sanft gegenderte Ausdrücke hinzu. Als Trennzeichen wird der Doppelpunkt (:) genutzt. Hierbei geht Gründlichkeit vor Masse.
+Ein freistehendes man wird durch man:frau ersetzt. 
+Wörter, die Menschengruppen bezeichnen, werden gegendert, wenn ein Vorsatzwort die Unbestimmtheit anzeigt (viele, alle, manche usw.).
 
 
 Version History
