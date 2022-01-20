@@ -12,7 +12,7 @@ browser.storage.local.get(function(settings) {
 function removeGender(sollrot) {
 
 	// Zeitnahme der Abarbeitung starten
-	console.time('RGGL');
+	console.time('AGGL');
 	
 	var result = [];
 	var checkme = '';
@@ -37,7 +37,7 @@ function removeGender(sollrot) {
 	};
 
 
-	console.log("RGGL - prüfe "+result.length+" Seitenelemente");
+	console.log("AGGL - prüfe "+result.length+" Seitenelemente");
 	var i;
 	var str;
 	var rot1="";
@@ -346,10 +346,10 @@ function removeGender(sollrot) {
 			x=ersterUnterschied(oldohnehrefclassstyle, strohnehrefclassstyle);
 			if (x < 50) x = 50;
 			x-=50;
-			if (oldohnehrefclassstyle.length < 100) console.log("%cRGGL #"+changes+" Tag "+result[i].nodeName+" - old: ..."+oldohnehrefclassstyle.substr(x)+"...", 'color: red;');
-			else console.log("%cRGGL Change #"+changes+" Tag "+result[i].nodeName+" - old: ..."+oldohnehrefclassstyle.substr(x,100)+"...", 'color: red;');
-			if (strohnehrefclassstyle.length < 100) console.log("%cRGGL Change #"+changes+" Tag "+result[i].nodeName+" - new: ..."+strohnehrefclassstyle.substr(x)+"...", 'color: green;');
-			else console.log("%cRGGL Change #"+changes+" Tag "+result[i].nodeName+" - new: ..."+strohnehrefclassstyle.substr(x,100)+"...", 'color: green;');
+			if (oldohnehrefclassstyle.length < 100) console.log("%cAGGL #"+changes+" Tag "+result[i].nodeName+" - old: ..."+oldohnehrefclassstyle.substr(x)+"...", 'color: red;');
+			else console.log("%cAGGL Change #"+changes+" Tag "+result[i].nodeName+" - old: ..."+oldohnehrefclassstyle.substr(x,100)+"...", 'color: red;');
+			if (strohnehrefclassstyle.length < 100) console.log("%cAGGL Change #"+changes+" Tag "+result[i].nodeName+" - new: ..."+strohnehrefclassstyle.substr(x)+"...", 'color: green;');
+			else console.log("%cAGGL Change #"+changes+" Tag "+result[i].nodeName+" - new: ..."+strohnehrefclassstyle.substr(x,100)+"...", 'color: green;');
 			
 			if (sollrot == 2) result[i].innerHTML = str;
 			else result[i].data = str;
@@ -363,7 +363,7 @@ function removeGender(sollrot) {
         });
 	  
 	  // Zeit der Abarbeitung stoppen und Ergebnis in die Konsole schreiben
-	  console.timeEnd('RGGL');
+	  console.timeEnd('AGGL');
 }
 
 
