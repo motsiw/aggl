@@ -31,7 +31,7 @@ https://addons.mozilla.org/de/firefox/addon/add-german-gender-language/
 
 Warum dieses Add-On?
 
-Einige Webseiten weigern sich beharrlich zu 'gendern'. Wenn Sie schon immer wissen wollten, wie sich die FAZ oder die BILD-Zeitung in genderneutralem Deutsch anfühlen, dann ist dieses Add-On das Richtige für Sie.
+Einige Webseiten weigern sich beharrlich zu 'gendern'. Wenn Sie schon immer wissen wollten, wie sich Wikipedia, die FAZ oder die BILD-Zeitung in genderneutralem Deutsch anfühlen, dann ist dieses Add-On das Richtige für Sie.
 
 
 Funktionsweise
