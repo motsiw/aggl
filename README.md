@@ -2,7 +2,7 @@
 Add German Gender Language (AGGL)
 ---------------------------------
 
-v0.1 (19.01.2022)
+v0.1 (20.01.2022)
 
 Autor: Motsi Weech (motsi.weech ät protonmail.com)
 
@@ -10,8 +10,7 @@ Kleines Add-On für den Firefox.
 Lizenz: GNU GENERAL PUBLIC LICENSE Version 3
 
 
-Das Add-On gendert Webseiten.
-Viele Spezialfälle werden berücksichtigt. Dadurch werden deutschsprachige Webseiten genderneutraler dargestellt. 
+Das Add-On gendert Webseiten. Viele Spezialfälle werden berücksichtigt. Dadurch werden deutschsprachige Webseiten genderneutraler dargestellt. 
 
 
 Bedienung:
@@ -36,14 +35,10 @@ Einige Webseiten weigern sich beharrlich zu 'gendern'. Wenn Sie schon immer wiss
 
 Funktionsweise
 
-Das Add-On fügt dort, wo es ohne Sinnentstellung möglich ist, sanft gegenderte Ausdrücke hinzu. Als Trennzeichen wird der Doppelpunkt (:) genutzt. Hierbei geht Gründlichkeit vor Masse. Folgende Regeln werden angewendet:
-
-1. Ein freistehendes man wird durch man:frau ersetzt.
-2. Nominativ/Akkusativ plural bei Personengruppen auf 'r' (Besucher, Anwender, Lehrer...) werden mit :innen ergänzt.
-3. Nominativ/Akkusativ plural bei Personengruppen auf 'te/ten)' (Polizisten, Landräte, Studenten...) werden mit :innen ergänzt.
+Das Add-On fügt dort, wo es ohne Sinnentstellung möglich ist, sanft gegenderte Ausdrücke hinzu. Als Trennzeichen wird der Doppelpunkt (:) genutzt. Hierbei geht Gründlichkeit vor Masse. 1. Ein freistehendes man wird durch man:frau ersetzt. Wörter, die Menschengruppen bezeichnen, werden gegendert, wenn ein Vorsatzwort die Unbestimmtheit anzeigt (viele, alle, manche usw.).
 
 
 Version History
 
 0.1
-- Entwicklungsversion
+- Initiales Release
