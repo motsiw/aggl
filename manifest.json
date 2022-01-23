@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Add German Gender Language",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Gendert Webseiten, bei denen der/die Autor*in im generischen Maskulinum schreibt.",
   
   "icons": {

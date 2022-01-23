@@ -1,13 +1,48 @@
 // Add German Gender Language
-// v0.1
+// v0.2
 // License: GPL v3.3
+
 
 
 // Einstellungen laden
 browser.storage.local.get(function(settings) {
-  if (settings.aktiv) removeGender(settings.aktiv);
+
+	if (spracheWebsite())
+	{
+		console.log("AGGL - Deutschsprachige Webseite erkannt.");
+		if (settings.aktiv) removeGender(settings.aktiv);
+	}
+	else
+	{
+		console.log("AGGL - Webseite nicht als deutschsprachig erkannt.");
+		browser.runtime.sendMessage({
+			count: '-',
+			type: "count"
+		});
+	}
 });
 
+
+// ermitteln, ob Webseite auf Deutsch ist
+function spracheWebsite() {
+  	var rueckgabe=0;
+	var docxmllang = document.getElementsByTagName('html')[0].getAttribute('xml:lang');
+	var doclang = document.getElementsByTagName('html')[0].getAttribute('lang');
+	doclang = String(doclang).toLowerCase()+String(docxmllang).toLowerCase();
+	var metalang = document.querySelectorAll('meta[content="de"]');
+	var metalang1 = document.querySelectorAll('meta[content="DE"]');
+	var metalang2 = document.querySelectorAll('meta[content="de-de"]');
+	var metalang3 = document.querySelectorAll('meta[content="de-at"]');
+	var metalang4 = document.querySelectorAll('meta[content="de-DE"]');
+	var metalang5 = document.querySelectorAll('meta[content="de-AT"]');
+	var metalang6 = document.querySelectorAll('meta[content="de-CH"]');
+	var metalang7 = document.querySelectorAll('meta[content="de-ch"]');
+	if (doclang.indexOf("de") != -1 || doclang.indexOf("at") != -1  || doclang.indexOf("ch") != -1 || metalang.length > 0 || metalang1.length > 0 || metalang2.length > 0 || metalang3.length > 0 || metalang4.length > 0 || metalang5.length > 0 || metalang6.length > 0 || metalang7.length > 0)
+	{
+		rueckgabe = 1;
+	}
+	return rueckgabe;
+}
 
 function removeGender(sollrot) {
 
@@ -81,16 +116,22 @@ function removeGender(sollrot) {
 	  
 	  
 	  // Nominativ/Akkusativ plural bei Nomen auf r
-	  str = str.replace(/(Liebe|An|Durch|Bis|Für|Gegen|Ohne|Um|Alle|Rund|Knapp| liebe| an| durch| bis| für| gegen| ohne| um| alle| rund| knapp)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|olitiker|ürger|inister|verdiener|usländer)([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Liebe|An|Durch|Bis|Für|Gegen|Ohne|Um|Alle|Rund|Knapp| liebe| an| durch| bis| für| gegen| ohne| um| alle| rund| knapp)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|olitiker|ürger|inister|verdiener|usländer|eiter|rüfer)([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Nominativ/Akkusativ plural bei Nomen auf t
-	  str = str.replace(/(Liebe|An|Durch|Bis|Für|Gegen|Ohne|Um|Alle|Rund|Knapp| liebe| an| durch| bis| für| gegen| ohne| um| alle| rund| knapp)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöäß])(ourist|siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
-	  
+	  str = str.replace(/(Liebe|An|Durch|Bis|Für|Gegen|Ohne|Um|Alle|Rund|Knapp| liebe| an| durch| bis| für| gegen| ohne| um| alle| rund| knapp)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöäß])(ourist|siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert|atient)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+
+	  // Nominativ/Akkusativ plural bei Nomen auf fs
+	  str = str.replace(/(Liebe|An|Durch|Bis|Für|Gegen|Ohne|Um|Alle|Rund|Knapp| liebe| an| durch| bis| für| gegen| ohne| um| alle| rund| knapp)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöäß])(hef)s([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+
 	  // Dativ  plural bei Nomen auf r
-	  str = str.replace(/(Von|Mit|Auf|Unter|Über|Vor|Zu|Aus|Bei|Außer|Nach|Samt|Seit|Meinen|Seinen|Laut|An| von| mit| auf| unter| über| vor| zu| aus| bei| außer| nach| samt| seit| meinen| seinen| unseren| ihren| laut| verschiedenen| vielen| an)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|olitiker|ürger|inister|verdiener|usländer)n([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Von|Mit|Auf|Unter|Über|Vor|Zu|Aus|Bei|Außer|Nach|Samt|Seit|Meinen|Seinen|Laut|An| von| mit| auf| unter| über| vor| zu| aus| bei| außer| nach| samt| seit| meinen| seinen| unseren| ihren| laut| verschiedenen| vielen| an)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|olitiker|ürger|inister|verdiener|usländer|eiter)n([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Dativ  plural bei Nomen auf t
-	  str = str.replace(/(Von|Mit|Auf|Unter|Über|Vor|Zu|Aus|Bei|Außer|Nach|Samt|Seit|Meinen|Seinen|Laut|An| von| mit| auf| unter| über| vor| zu| aus| bei| außer| nach| samt| seit| meinen| seinen| unseren| ihren| laut| verschiedenen| vielen| an)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(ourist|siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Von|Mit|Auf|Unter|Über|Vor|Zu|Aus|Bei|Außer|Nach|Samt|Seit|Meinen|Seinen|Laut|An| von| mit| auf| unter| über| vor| zu| aus| bei| außer| nach| samt| seit| meinen| seinen| unseren| ihren| laut| verschiedenen| vielen| an)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(ourist|siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert|atient)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+
+	  // Dativ  plural bei Nomen auf fs
+	  str = str.replace(/(Von|Mit|Auf|Unter|Über|Vor|Zu|Aus|Bei|Außer|Nach|Samt|Seit|Meinen|Seinen|Laut|An| von| mit| auf| unter| über| vor| zu| aus| bei| außer| nach| samt| seit| meinen| seinen| unseren| ihren| laut| verschiedenen| vielen| an)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(hef)s([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Dativ  plural bei Nomen auf ren
 	  str = str.replace(/(Von|Mit|Auf|Unter|Über|Vor|Zu|Aus|Bei|Außer|Nach|Samt|Seit|Meinen|Seinen|Laut|An| von| mit| auf| unter| über| vor| zu| aus| bei| außer| nach| samt| seit| meinen| seinen| unseren| ihren| laut| verschiedenen| vielen| an)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|enior)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
@@ -99,25 +140,28 @@ function removeGender(sollrot) {
 	  str = str.replace(/(Viele|Alle|Einige|Ihre|Unsere|Für|Seine|Mehrere| mehrere| seine| unsere| für| ihre| viele| alle| einige|kanische|kanischen)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöä])(rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|enior)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Genitiv plural bei Nomen auf r und Unbestimmtheit
-	  str = str.replace(/(Dieser|Vieler|Aller|Einiger|Ihrer| ihrer| dieser| vieler| aller| einiger|kanischer)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|obachter|utzer|olitiker|ürger|inister|verdiener|usländer)([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Dieser|Vieler|Aller|Einiger|Ihrer| ihrer| dieser| vieler| aller| einiger|kanischer)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|obachter|utzer|olitiker|ürger|inister|verdiener|usländer|eiter|rüfer)([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Genitiv plural bei Nomen auf t und Unbestimmtheit
-	  str = str.replace(/(Dieser|Vieler|Aller|Einiger|Ihrer| ihrer| dieser| vieler| aller| einiger|ischer)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöä])(ourist|siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Dieser|Vieler|Aller|Einiger|Ihrer| ihrer| dieser| vieler| aller| einiger|ischer)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöä])(ourist|siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert|atient)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+
+	  // Genitiv plural bei Nomen auf fs und Unbestimmtheit
+	  str = str.replace(/(Dieser|Vieler|Aller|Einiger|Ihrer| ihrer| dieser| vieler| aller| einiger|ischer)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄa-züöä])(hef)s([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 	  
 	  // Fall egal plural bei Nomen auf r und Unbestimmtheit
-	  str = str.replace(/(Viele|Alle|Einige|Ihre|Unsere|Für|Seine|Mehrere| mehrere| seine| unsere| für| ihre| viele| alle| einige|kanische|kanischen)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|obachter|utzer|olitiker|ürger|inister|verdiener|usländer)([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Viele|Alle|Einige|Ihre|Unsere|Für|Seine|Mehrere| mehrere| seine| unsere| für| ihre| viele| alle| einige|kanische|kanischen)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|obachter|utzer|olitiker|ürger|inister|verdiener|usländer|eiter)([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Fall egal plural bei Nomen auf t und Unbestimmtheit
-	  str = str.replace(/(Viele|Alle|Einige|Ihre|Unsere|Für|Seine|Mehrere| mehrere| seine| unsere| für| ihre| viele| alle| einige|kanische|kanischen)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ])(siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
+	  str = str.replace(/(Viele|Alle|Einige|Ihre|Unsere|Für|Seine|Mehrere| mehrere| seine| unsere| für| ihre| viele| alle| einige|kanische|kanischen)(| [0-9,.]*?| [0-9,.]*? Millionen| [0-9,.]*? Mio\.| zwei| drei| vier| fünf| sechs| sieben| acht| neun| zehn| elf| zwölf| zwanzig| dreißig| vierzig| fünfzig| hundert| tausend) ([A-ZÜÖÄ])(siat|andrät|olizist|tudent|issident|andidat|äsident|oldat|xpert|atient)en([ ,).“\?"!\--])([^u]|$)/g,"$1$2 "+rot1+"$3$4:innen"+rot2+"$5$6");
 
 	  // Nominativ singular bei Nomen auf r und Unbestimmtheit "jeder"
-	  str = str.replace(/(J|j)eder ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|ürger|olitiker|inister|verdiener|rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|usländer)([ ,).“\?"!\--])([^u]|$)/g,""+rot1+"$1ede:r $2$3:in$4"+rot2+"$5");
+	  str = str.replace(/(J|j)eder ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|ürger|olitiker|inister|verdiener|rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|usländer|eiter|rüfer)([ ,).“\?"!\--])([^u]|$)/g,""+rot1+"$1ede:r $2$3:in$4"+rot2+"$5");
 
 	  // Nominativ singular bei Nomen auf r und Unbestimmtheit "ein"
-	  str = str.replace(/(Ein| ein) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|ürger|olitiker|inister|verdiener|rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|usländer)([ ,).“\?"!\--])([^u]|$)/g,""+rot1+"$1:e $2$3:in$4"+rot2+"$5");
+	  str = str.replace(/(Ein| ein) ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|ürger|olitiker|inister|verdiener|rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|usländer|eiter|rüfer)([ ,).“\?"!\--])([^u]|$)/g,""+rot1+"$1:e $2$3:in$4"+rot2+"$5");
 
 	  // Nominativ singular bei Nomen auf r und Unbestimmtheit "mancher"
-	  str = str.replace(/(M|m)ancher ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|ürger|olitiker|inister|verdiener|rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|usländer)([ ,).“\?"!\--])([^u]|$)/g,""+rot1+"$1anche:r $2$3:in$4"+rot2+"$5");
+	  str = str.replace(/(M|m)ancher ([A-ZÜÖÄ][a-züöäß]*?)(usiker|ritiker|ropäer|ndianer|merikaner|andwerker|portler|ünstler|orscher|orgänger|achfolger|egner|nhänger|esucher|nwender|chüler|rbeiter|ehrer|nhänger|rbeitnehmer|rbeitgeber|chmuggler|ichter|ertreter|ienstleister|pieler|issenschaftler|aucher|wohner|eobachter|utzer|ürger|olitiker|inister|verdiener|rofessor|utor|rganisator|nvestor|ktionär|ovator|oderator|usländer|eiter|rüfer)([ ,).“\?"!\--])([^u]|$)/g,""+rot1+"$1anche:r $2$3:in$4"+rot2+"$5");
 
 
 	  // Jeder, mancher, keiner wenn kein Leerzeichen, sondern ein Satzzeichen folgt (sonst würde in keiner Weise, in mancher Hinsicht etc. auch gegendert)

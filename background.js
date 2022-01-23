@@ -1,5 +1,5 @@
 // Add German Gender Language
-// v0.1
+// v0.2
 // License: GPL 3.2
 
 var settings = "";

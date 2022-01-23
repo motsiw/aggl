@@ -2,7 +2,7 @@
 Add German Gender Language (AGGL)
 ---------------------------------
 
-v0.1 (20.01.2022)
+v0.2 (23.01.2022)
 
 Autor: Motsi Weech (motsi.weech ät protonmail.com)
 
@@ -41,6 +41,10 @@ Wörter, die Menschengruppen bezeichnen, werden gegendert, wenn ein Vorsatzwort 
 
 
 Version History
+
+0.2
+- Add-On wird nur noch auf deutschsprachigen Webseiten aktiv
+- Ergänzt: Chefs => Chef*innen, Prüfer => Prüfer*innen, Patienten => Patient*innen
 
 0.1
 - Initiales Release
